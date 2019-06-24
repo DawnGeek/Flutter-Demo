@@ -17,10 +17,16 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       //应用名称
       title: 'Flutter Demo',
+      
       theme: new ThemeData(
         //蓝色主题
         primarySwatch: Colors.blue,
       ),
+
+      //注册路由表
+      routes: {
+        "new_page": (context) => NewRoute(),
+      },
       //应用首页路由
       home: new MyHomePage(title: '首页'),
     );
@@ -53,8 +59,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // 跳转NewRoute
   void _jumpRoute() {
-    print('点击');
+    /*Navigator是一个路由管理的widget，它通过一个栈来管理一个路由widget集合。
+      通常当前屏幕显示的页面就是栈顶的路由。Navigator提供了一系列方法来管理路由栈，在此我们只介绍其最常用的两个方法：
+        1.Future push(BuildContext context, Route route) 将给定的路由入栈（即打开新的页面），返回值是一个Future对象，用以接收新路由出栈（即关闭）时的返回数据。
+        2.bool pop(BuildContext context, [ result ]) 将栈顶路由出栈，result为页面关闭时返回给上一个页面的数据。
+      Navigator 还有很多其它方法，如Navigator.replace、Navigator.popUntil等。
+
+      Navigator类中第一个参数为context的静态方法都对应一个Navigator的实例方法,
+      比如Navigator.push(BuildContext context, Route route) 等价于Navigator.of(context).push(Route route)
+      */
+
+    // 路由传参
+    Navigator.of(context).pushNamed("new_page", arguments: this._count);
+    return;
+    Navigator.pushNamed(context, "new_page");
+    return;
     Navigator.push(context,
+
+      // MaterialPageRoute继承自PageRoute类，PageRoute类是一个抽象类，表示占有整个屏幕空间的一个模态路由页面，它还定义了路由构建及切换时过渡动画的相关接口及属性。
+
+      /* MaterialPageRoute({
+        WidgetBuilder builder, builder 是一个WidgetBuilder类型的回调函数，它的作用是构建路由页面的具体内容，返回值是一个widget。我们通常要实现此回调，返回新路由的实例
+        RouteSettings settings, 包含路由的配置信息，如路由名称、是否初始路由（首页）
+        bool maintainState = true, 默认情况下，当入栈一个新路由时，原来的路由仍然会被保存在内存中，如果想在路由没用的时候释放其所占用的所有资源，可以设置maintainState为false
+        bool fullscreenDialog = false, 表示新的路由页面是否是一个全屏的模态对话框，在iOS中，如果fullscreenDialog为true，新页面将会从屏幕底部滑入（而不是水平方向
+      })*/
       new MaterialPageRoute(builder: (context) {
         return new NewRoute();
       })
@@ -105,6 +134,12 @@ class _MyHomePageState extends State<MyHomePage> {
 class NewRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    // 接受参数
+    var routeParams = ModalRoute.of(context).settings.arguments;
+
+    print(routeParams);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("New route"),
