@@ -49,6 +49,7 @@ flutter:
 
   assets:
     - assets/images/maimai.jpeg
+    - assets/images/shagou.jpeg
     - assets/json/data.json
 
 

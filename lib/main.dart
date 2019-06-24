@@ -155,20 +155,84 @@ class NewRoute extends StatelessWidget {
 
     print(routeParams);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("New route"),
-      ),
-      body: Center(
+//    return Scaffold(
+//      appBar: AppBar(
+//        title: Text("New route"),
+//      ),
+//      body: Center(
+//        child: new Column(
+//          children: <Widget>[
+//            LoadImg(),
+//            new Text('hellow shaopeng', style: new TextStyle(fontSize: 32.5,),),
+//            Echo(text: '123',)
+//          ],
+//        )
+//      ),
+//    );
+    return new Container(
+      decoration: new BoxDecoration(color: Colors.white),
+      child: new Center(
         child: new Column(
           children: <Widget>[
-            LoadImg()
+            new Row(
+              /*您可以控制行或列如何使用mainAxisAlignment和crossAxisAlignment属性来对齐其子项。
+                对于行(Row)来说，主轴是水平方向，横轴垂直方向。对于列（Column）来说，主轴垂直方向，横轴水平方向*/
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                new Expanded(child: Image.asset('assets/images/shagou.jpeg'),),
+                new Expanded(child: Image.asset('assets/images/shagou.jpeg'), flex: 2,),
+                new Expanded(child: Image.asset('assets/images/shagou.jpeg'), flex: 2,),
+                new Expanded(child: Image.asset('assets/images/shagou.jpeg'),),
+              ],
+            ),
+            new Center(
+              child: new Text('Hello MaiMai',
+                  style: new TextStyle(fontSize: 40.0, color: Colors.black87)),
+            ),
+            LoadImg(),
+            StarVm()
           ],
-        )
+        ),
       ),
     );
   }
 }
+
+class StarVm extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: new EdgeInsets.all(20.0),
+      color: Colors.tealAccent,
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          new Row(
+            children: <Widget>[
+              new Icon(Icons.star, color: Colors.blue),
+              new Icon(Icons.star, color: Colors.blue),
+              new Icon(Icons.star, color: Colors.blue),
+              new Icon(Icons.star, color: Colors.blue),
+              new Icon(Icons.star, color: Colors.blue)
+            ],
+          ),
+          new Text(
+            'wahahhaha',
+            style: new TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w800,
+              fontFamily: 'Roboto',
+              letterSpacing: .5,
+              fontSize: 20.0
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
 
 // 随机字符串组件
 class RandomWordsWidget extends StatelessWidget {
@@ -186,8 +250,34 @@ class RandomWordsWidget extends StatelessWidget {
 class LoadImg extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return  new Expanded(
       child: Image.asset('assets/images/maimai.jpeg'),
+    );
+  }
+}
+
+// Stateless Widget
+class Echo extends StatelessWidget {
+  /*按照惯例，widget的构造函数应使用命名参数，命名参数中的必要参数要添加@required标注，
+    这样有利于静态代码分析器进行检查，另外，在继承widget时，第一个参数通常应该是Key，
+    如果接受子widget的child参数，那么通常应该将它放在参数列表的最后。*/
+  const Echo({
+    Key key,
+    @required this.text,
+    this.backgroundColor:Colors.blueAccent,
+  }):super(key:key);
+
+  // widget的属性应被声明为final，防止被意外改变。
+  final String text;
+  final Color backgroundColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        color: backgroundColor,
+        child: Text(text),
+      ),
     );
   }
 }
