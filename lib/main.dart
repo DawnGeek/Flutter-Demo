@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 // 此行代码作用是导入了Material UI组件库。Material是一种标准的移动端和web端的视觉设计语言， Flutter默认提供了一套丰富的Material风格的UI组件
 
+import 'package:english_words/english_words.dart'; // 随机英文
+
 
 // 应用入口
 void main() => runApp(new MyApp());
@@ -115,7 +117,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text('点我'),
               textColor: Colors.blue,
               onPressed: _jumpRoute,
-            )
+            ),
+            RandomWordsWidget() // 随机字符串
           ],
         ),
       ),
@@ -147,6 +150,18 @@ class NewRoute extends StatelessWidget {
       body: Center(
         child: Text("This is new route"),
       ),
+    );
+  }
+}
+
+// 随机字符串组件
+class RandomWordsWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final wordPair = new WordPair.random();
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Text(wordPair.toString()),
     );
   }
 }
