@@ -42,6 +42,16 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  # 和包管理一样，Flutter也使用pubspec.yaml文件来管理应用程序所需的资源.
+  # assets指定应包含在应用程序中的文件。 每个asset都通过相对于pubspec.yaml文件所在位置的显式路径进行标识。
+  # asset的声明顺序是无关紧要的。asset的实际目录可以是任意文件夹（在本示例中是assets）。
+  # 在构建期间，Flutter将asset放置到称为 asset bundle 的特殊存档中，应用程序可以在运行时读取它们（但不能修改）。
+
+  assets:
+    - assets/images/maimai.jpeg
+    - assets/json/data.json
+
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg

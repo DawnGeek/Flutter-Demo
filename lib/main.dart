@@ -1,8 +1,19 @@
 // 导入包
-import 'package:flutter/material.dart';
-// 此行代码作用是导入了Material UI组件库。Material是一种标准的移动端和web端的视觉设计语言， Flutter默认提供了一套丰富的Material风格的UI组件
-
+import 'package:flutter/material.dart'; // 此行代码作用是导入了Material UI组件库。Material是一种标准的移动端和web端的视觉设计语言， Flutter默认提供了一套丰富的Material风格的UI组件
 import 'package:english_words/english_words.dart'; // 随机英文
+import 'package:flutter/services.dart' show rootBundle; // 通过rootBundle 对象加载：每个Flutter应用程序都有一个rootBundle对象， 通过它可以轻松访问主资源包
+import 'dart:async' show Future;
+import 'dart:developer'; // debugger
+
+// 加载 assets
+/* 您的应用可以通过AssetBundle对象访问其asset 。有两种主要方法允许从Asset bundle中加载字符串或图片(二进制)文件。 */
+
+// 文字加载
+Future<String> loadsset() async {
+  return await rootBundle.loadString('assets/json/data.json');
+}
+
+void test() => print(123);
 
 
 // 应用入口
@@ -118,7 +129,8 @@ class _MyHomePageState extends State<MyHomePage> {
               textColor: Colors.blue,
               onPressed: _jumpRoute,
             ),
-            RandomWordsWidget() // 随机字符串
+            RandomWordsWidget(), // 随机字符串
+            LoadImg()
           ],
         ),
       ),
@@ -148,7 +160,11 @@ class NewRoute extends StatelessWidget {
         title: Text("New route"),
       ),
       body: Center(
-        child: Text("This is new route"),
+        child: new Column(
+          children: <Widget>[
+            LoadImg()
+          ],
+        )
       ),
     );
   }
@@ -165,3 +181,14 @@ class RandomWordsWidget extends StatelessWidget {
     );
   }
 }
+
+// 引入图片
+class LoadImg extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return  Container(
+      child: Image.asset('assets/images/maimai.jpeg'),
+    );
+  }
+}
+
